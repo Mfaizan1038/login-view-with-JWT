@@ -45,9 +45,7 @@ class LoginView(APIView):
             "refresh": str(refresh)
         }, status=status.HTTP_200_OK)
     
-    
-    
-    
+       
 class RefreshTokenView(APIView):
     permission_classes = [AllowAny]
 
@@ -103,3 +101,6 @@ class UserSearchView(APIView):
         serializer = RegisterSerializer(paginated_queryset, many=True)
 
         return Response(serializer.data)
+    
+
+
