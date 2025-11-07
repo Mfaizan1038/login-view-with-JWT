@@ -68,8 +68,8 @@ REST_FRAMEWORK = {
 from datetime import timedelta
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=3),   # Access token valid for 5 mins
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),     # Refresh token valid for 1 day
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),   # Access token valid for 3 mins
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=5),     # Refresh token valid for 5 days
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
 }
