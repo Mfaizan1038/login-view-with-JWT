@@ -39,7 +39,6 @@ class CustomLoginSerializer(serializers.Serializer):
         email = data['email']
         password = data['password']
         
-        
         user = User.objects.get(email=email)
         
         if not user.check_password(password):
