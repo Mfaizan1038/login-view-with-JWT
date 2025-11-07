@@ -39,7 +39,7 @@ class LoginTests(APITestCase):
         self.user = UserFactory(username="faizan", email="faizan@example.com")
 
     def test_login_user_success(self):
-        data = {"username": self.user.username, "password": "password123"}
+        data = {"email": self.user.email, "password": "password123"}
         response = self.client.post(self.login_url, data, format="json")
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
