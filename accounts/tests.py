@@ -100,3 +100,28 @@ class UserSearchTests(APITestCase):
 
         usernames = [u["username"] for u in response.data]
         self.assertTrue(isinstance(usernames, list))
+
+
+class UserEmailDomainFilterTests(APITestCase):
+    def setUp(self):
+        self.client = APIClient()
+        self.search_url = reverse("search")
+        self.user1 = UserFactory(username="user1", email="user1@gmail.com")
+        self.user2 = UserFactory(username="user2", email="user2@yahoo.com")
+        self.user3 = UserFactory(username="user3", email="user3@gmail.com")
+
+    def test_filter_by_gmail_domain(self):
+        response = self.client.get(f"{self.search_url}?email_domain=gmail.com")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        emails = [u["email"] for u in response.data]
+        self.assertIn("user1@gmail.com", emails)
+        self.assertIn("user3@gmail.com", emails)
+        self.assertNotIn("user2@yahoo.com", emails)
+
+    def test_filter_by_yahoo_domain(self):
+        response = self.client.get(f"{self.search_url}?email_domain=y.com")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        emails = [u["email"] for u in response.data]
+        self.assertIn("user2@yahoo.com", emails)
+        self.assertNotIn("user1@gmail.com", emails)
+        self.assertNotIn("user3@gmail.com", emails)
